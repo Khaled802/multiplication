@@ -1,6 +1,10 @@
 package com.example.multiplication.challenge.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +31,11 @@ public class ChallengeAttemptController {
         log.info("challage attempt {}", challengeAttempt);
         return challengeAttempt;
     }
-    
+
+    @GetMapping("/{user}")
+    public List<ChallengeAttempt> getLatestAttempts(@PathVariable("user") String user) {
+        var challengeAttempts = challengeAttemptService.getLatest(user);
+        log.info("attempts {}", challengeAttempts);
+        return challengeAttempts;
+    }
 }
